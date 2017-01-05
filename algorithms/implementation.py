@@ -71,31 +71,47 @@ def find_betweens(A, B):
     return len(result)
 
 
+def find_divisble_pairs(integers, k):
+    """ Divisible Pairs. """
+    result = 0
+    for index, integer in enumerate(integers):
+        for pair in integers[index + 1:]:
+            if (integer + pair) % k == 0:
+                result += 1
+
+    return result
+
+
 if __name__ == '__main__':
     # Mini-Max Sum
-    # test_fn(mini_max_sum([1, 2, 3, 4, 5]), '10 14')
+    test_fn(mini_max_sum([1, 2, 3, 4, 5]), '10 14')
 
     # Designer PDF Viewer
     letter_heights = [1, 3, 1, 3, 1, 4, 1, 3, 2, 5, 5,
                       5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
-    # test_fn(find_area('abc', letter_heights), 9)
+    test_fn(find_area('abc', letter_heights), 9)
 
     # Apple and Orange
     house = (7, 11)
     apple_tree, orange_tree = (5, 15)
     apple_distances = (-2, 2, 1)
     orange_distances = (5, -6)
-    # test_fn(find_fruit_on_house(house, apple_tree, apple_distances), 1)
-    # test_fn(find_fruit_on_house(house, orange_tree, orange_distances), 1)
+    test_fn(find_fruit_on_house(house, apple_tree, apple_distances), 1)
+    test_fn(find_fruit_on_house(house, orange_tree, orange_distances), 1)
 
     # Kangaroos
     kangaroos = ([0, 2], [5, 3])
-    # test_fn(check_if_kangaroos_meet(kangaroos), 'NO')
+    test_fn(check_if_kangaroos_meet(kangaroos), 'NO')
     kangaroos = ([0, 4], [4, 2])
-    # test_fn(check_if_kangaroos_meet(kangaroos), 'YES')
+    test_fn(check_if_kangaroos_meet(kangaroos), 'YES')
 
     # Between Two Sets
     A, B = (2, 4), (16, 32, 96)
     test_fn(find_betweens(A, B), 3)
     A, B = (2, ), (20, 30, 12)
     test_fn(find_betweens(A, B), 1)
+
+    # Divisible Sum Pairs
+    integers = [1, 3, 2, 6, 1, 2]
+    k = 3
+    test_fn(find_divisble_pairs(integers, k), 5)
