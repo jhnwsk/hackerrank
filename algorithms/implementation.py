@@ -82,6 +82,23 @@ def find_divisble_pairs(integers, k):
     return result
 
 
+def find_sum_owed(n, k, b_charged, prices):
+    """ Bon Appetit. """
+    b_owed = sum(p for i, p in enumerate(prices) if i != k) // 2
+    result = b_charged - b_owed
+    if result == 0:
+        result = 'Bon Appetit'
+    return result
+
+
+def find_matching_socks(socks):
+    """ Sock Merchant. """
+    matching = {s: socks.count(s) for s in set(socks)}
+    result = 0
+    for m in matching.values():
+        result += m // 2
+    return result
+
 if __name__ == '__main__':
     # Mini-Max Sum
     test_fn(mini_max_sum([1, 2, 3, 4, 5]), '10 14')
@@ -115,3 +132,15 @@ if __name__ == '__main__':
     integers = [1, 3, 2, 6, 1, 2]
     k = 3
     test_fn(find_divisble_pairs(integers, k), 5)
+
+    # Bon Apetit
+    n, k, b_charged = 4, 1, 12
+    prices = [3, 10, 2, 9]
+    test_fn(find_sum_owed(n, k, b_charged, prices), 5)
+    n, k, b_charged = 4, 1, 7
+    prices = [3, 10, 2, 9]
+    test_fn(find_sum_owed(n, k, b_charged, prices), 'Bon Appetit')
+
+    # Sock merchant
+    socks = [10, 20, 20, 10, 10, 30, 50, 10, 20]
+    test_fn(find_matching_socks(socks), 3)
