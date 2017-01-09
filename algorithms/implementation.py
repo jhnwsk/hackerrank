@@ -99,6 +99,38 @@ def find_matching_socks(socks):
         result += m // 2
     return result
 
+
+def grow_utopian_tree(cycles):
+    """ Utopian Tree. """
+    result = []
+    for c in cycles:
+        height = 1
+        for cycle in range(c):
+            if cycle % 2 == 0:
+                height *= 2
+            else:
+                height += 1
+        result.append(height)
+    return result
+
+
+def check_class_cancelled(students, threshold, arrivals):
+    result = 'NO'
+    present = sum(a <= 0 for a in arrivals)
+    if threshold > present:
+        result = 'YES'
+    return result
+
+
+def count_beautiful_between(i, j, k):
+    result = 0
+    candidates = range(i, j + 1)
+    for candidate in candidates:
+        reverse = int(str(candidate)[::-1])
+        if (candidate - reverse) % k == 0:
+            result += 1
+    return result
+
 if __name__ == '__main__':
     # Mini-Max Sum
     test_fn(mini_max_sum([1, 2, 3, 4, 5]), '10 14')
@@ -144,3 +176,21 @@ if __name__ == '__main__':
     # Sock merchant
     socks = [10, 20, 20, 10, 10, 30, 50, 10, 20]
     test_fn(find_matching_socks(socks), 3)
+
+    # Utopian Tree
+    cycles = [0, 1, 4]
+    test_fn(grow_utopian_tree(cycles), [1, 2, 7])
+    cycles = [4, 3]
+    test_fn(grow_utopian_tree(cycles), [7, 6])
+
+    # Angry Professor
+    students, threshold = 4, 3
+    arrival_times = [-1, -3, 4, 2]
+    test_fn(check_class_cancelled(students, threshold, arrival_times), 'YES')
+    students, threshold = 4, 2
+    arrival_times = [0, -1, 2, 1]
+    test_fn(check_class_cancelled(students, threshold, arrival_times), 'NO')
+
+    # Beautiful Days at the Movies
+    i, j, k = 20, 23, 6
+    test_fn(count_beautiful_between(i, j, k), 2)
