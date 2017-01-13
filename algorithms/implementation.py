@@ -123,6 +123,14 @@ def check_class_cancelled(students, threshold, arrivals):
 
 
 def count_beautiful_between(i, j, k):
+    """ Beautiful Days at the Movies.
+
+    args:
+        i, j -- day numbers between which to search
+        k    -- beautiful divisor
+
+    """
+
     result = 0
     candidates = range(i, j + 1)
     for candidate in candidates:
@@ -130,6 +138,49 @@ def count_beautiful_between(i, j, k):
         if (candidate - reverse) % k == 0:
             result += 1
     return result
+
+
+def find_ad_reach(n):
+    """ Viral Advertising.
+
+    args:
+        n -- the number of days the campaign lasts
+
+    """
+    people = 0
+    sent = 5
+    for day in range(n):
+        sent = sent // 2
+        people += sent
+        sent = sent * 3
+
+    return people
+
+
+def save_prisoner(prisoners, sweets, starting_id):
+    """ Save the Prisoner! """
+    result = starting_id + sweets - 1
+    result = result % prisoners
+    if result == 0:
+        result = prisoners
+    return result
+
+
+def find_energy_at_game_end(jump_distance, clouds):
+    """ Jumping On The Clouds. """
+    cloud = 0
+    game_ended = False
+    energy = 100
+    cost, thundercloud_cost = 1, 2
+    while not game_ended:
+        cloud = (cloud + jump_distance) % len(clouds)
+        energy -= cost
+        if clouds[cloud]:
+            energy -= thundercloud_cost
+        if cloud == 0 or energy <= 0:
+            game_ended = True
+
+    return energy
 
 if __name__ == '__main__':
     # Mini-Max Sum
@@ -194,3 +245,34 @@ if __name__ == '__main__':
     # Beautiful Days at the Movies
     i, j, k = 20, 23, 6
     test_fn(count_beautiful_between(i, j, k), 2)
+
+    # Viral Advertising
+    n = 1
+    test_fn(find_ad_reach(n), 2)
+    n = 2
+    test_fn(find_ad_reach(n), 5)
+    n = 3
+    test_fn(find_ad_reach(n), 9)
+    n = 4
+    test_fn(find_ad_reach(n), 15)
+
+    # Save the Prisoner!
+    n, m, s = 3, 7, 2
+    test_fn(save_prisoner(n, m, s), 2)
+    n, m, s = 6, 6, 1
+    test_fn(save_prisoner(n, m, s), 6)
+    n, m, s = 1, 1, 1
+    test_fn(save_prisoner(n, m, s), 1)
+    n, m, s = 5, 2, 1
+    test_fn(save_prisoner(n, m, s), 2)
+    n, m, s = 4, 5, 1
+    test_fn(save_prisoner(n, m, s), 1)
+    n, m, s = 499999999, 999999997, 2
+    test_fn(save_prisoner(n, m, s), 499999999)
+    n, m, s = 999999999, 999999999, 1
+    test_fn(save_prisoner(n, m, s), 999999999)
+
+    # Jumping in the Clouds
+    n, k = 8, 2
+    clouds = [0, 0, 1, 0, 0, 1, 1, 0]
+    test_fn(find_energy_at_game_end(k, clouds), 92)
