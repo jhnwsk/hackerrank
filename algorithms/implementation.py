@@ -1,8 +1,11 @@
+#!/bin/python3
 """ HackerRank 'Algorithms' domain Warmup challenges.
 
     https://www.hackerrank.com/challenges/mini-max-sum
 """
 from string import ascii_lowercase
+from itertools import takewhile
+from math import floor, sqrt, ceil
 
 
 def test_fn(actual, expected):
@@ -182,6 +185,61 @@ def find_energy_at_game_end(jump_distance, clouds):
 
     return energy
 
+
+def find_even_divisors(an_integer):
+    """ Find Digits. """
+    result = 0
+    for i in str(an_integer):
+        if i != '0' and not an_integer % int(i):
+            result += 1
+    return result
+
+
+def find_factorial(n):
+    """ Extra Long Factorials. """
+    result = 1
+    for i in range(1, n + 1):
+        result *= i
+    return result
+
+
+def is_conversion_possible(original, desired, number_of_operations):
+    """ Append and Delete. """
+    result = 'No'
+    deletes = 0
+    ori_len, desi_len = len(original), len(desired)
+
+    if original != desired:
+        compare = enumerate(zip(original, desired))
+        default = min(ori_len, desi_len) - 1
+        diff_index = min([i for i, e in compare if e[
+                         0] != e[1]], default=default)
+        deletes = ori_len - diff_index
+    adds = desi_len - (ori_len - deletes)
+
+    if original == desired or adds + deletes == number_of_operations or number_of_operations >= ori_len + desi_len:
+        result = 'Yes'
+
+    return result
+
+
+def count_squares_between(A, B):
+    """ Sherlock and Squares. """
+    A, B = ceil(sqrt(A)), floor(sqrt(B)) + 1
+    result = B - A
+    return result
+
+def count_sticks(sticks):
+    """ Count the Sticks. """
+    result = []
+    while sticks:
+        result.append(len(sticks))
+        cut = min(sticks)
+        sticks = map(lambda x: x - cut, sticks)
+        sticks = [s for s in sticks if s > 0]
+
+    return result
+
 if __name__ == '__main__':
     # Mini-Max Sum
     test_fn(mini_max_sum([1, 2, 3, 4, 5]), '10 14')
@@ -276,3 +334,35 @@ if __name__ == '__main__':
     n, k = 8, 2
     clouds = [0, 0, 1, 0, 0, 1, 1, 0]
     test_fn(find_energy_at_game_end(k, clouds), 92)
+
+    # Find Digits
+    n = 12
+    test_fn(find_even_divisors(n), 2)
+    n = 1012
+    test_fn(find_even_divisors(n), 3)
+
+    # Extra Long Factorials
+    n = 25
+    test_fn(find_factorial(n), 15511210043330985984000000)
+
+    # Append and Delete
+    original, desired, k = 'hackerhappy', 'hackerrank', 9
+    test_fn(is_conversion_possible(original, desired, k), 'Yes')
+    original, desired, k = 'hackerhappy', 'hackerrank', 8
+    test_fn(is_conversion_possible(original, desired, k), 'No')
+    original, desired, k = 'aba', 'aba', 7
+    test_fn(is_conversion_possible(original, desired, k), 'Yes')
+    original, desired, k = 'asdfqwertyuighjkzxcvasdfqwertyuighjkzxcvasdfqwertyuighjkzxcvasdfqwertyuighjkzxcvasdfqwertyuighjkzxcv', 'asdfqwertyuighjkzxcvasdfqwertyuighjkzxcvasdfqwertyuighjkzxcvasdfqwertyuighjkzxcvasdfqwertyuighjkzxcv', 20
+    test_fn(is_conversion_possible(original, desired, k), 'Yes')
+    original, desired, k = 'aaaaaaaaaa', 'aaaaa', 7
+    test_fn(is_conversion_possible(original, desired, k), 'Yes')
+
+    # Sherlock and Squares
+    A, B = 3, 9
+    test_fn(count_squares_between(A, B), 2)
+    A, B = 17, 24
+    test_fn(count_squares_between(A, B), 0)
+
+    # Cut the Sticks
+    sticks = [5, 4, 4, 2, 2, 8]
+    test_fn(count_sticks(sticks), [6, 4, 2, 1])
