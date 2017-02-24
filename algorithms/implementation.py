@@ -1,15 +1,13 @@
 #!/bin/python3
 """ HackerRank 'Algorithms' domain Warmup challenges.
 
-    https://www.hackerrank.com/challenges/mini-max-sum
+    https://www.hackerrank.com/domains/algorithms/implementation
 """
 from string import ascii_lowercase
 from itertools import takewhile
 from math import floor, sqrt, ceil
 
-
-def test_fn(actual, expected):
-    print(expected, actual, expected == actual)
+from testing import test_fn
 
 
 def mini_max_sum(integers):
@@ -228,6 +226,7 @@ def count_squares_between(A, B):
     A, B = ceil(sqrt(A)), floor(sqrt(B)) + 1
     result = B - A
     return result
+
 
 def count_sticks(sticks):
     """ Count the Sticks. """

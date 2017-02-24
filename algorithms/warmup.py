@@ -1,8 +1,9 @@
-""" HackerRank 'Algorithms' domain Warmup challenges """
+#!/bin/python3
+""" HackerRank 'Algorithms' domain Warmup challenges.
 
-
-def test_fn(expected, actual):
-    print(expected, actual, expected == actual)
+    https://www.hackerrank.com/domains/algorithms/warmup
+"""
+from testing import test_fn
 
 
 def compare_triplets(triplet_A, triplet_B):
