@@ -26,14 +26,26 @@ def replace_at_index(a_string, index, replace_with):
     return a_string[:index] + replace_with + a_string[index + 1:]
 
 
-def count_substring(string, substring):
+def count_substring(sstring, substring):
     """ Find A String. """
     count = 0
     substring_len = len(substring)
-    for i in range(len(string)):
-        count += string.count(substring, i, i + substring_len)
+    for i in range(len(sstring)):
+        count += sstring.count(substring, i, i + substring_len)
 
     return count
+
+
+def validate_string(sstring):
+    """ String Validators """
+    result = (any(map(lambda x: x.isalnum(), sstring)),
+              any(map(lambda x: x.isalpha(), sstring)),
+              any(map(lambda x: x.isdigit(), sstring)),
+              any(map(lambda x: x.islower(), sstring)),
+              any(map(lambda x: x.isupper(), sstring)))
+
+    return result
+
 
 if __name__ == '__main__':
     case = 'Pythonist 3'
@@ -55,3 +67,7 @@ if __name__ == '__main__':
     # Find A String
     string, substring = 'ABCDCDC', 'CDC'
     test_fn(count_substring(string, substring), 2)
+
+    # Find A String
+    sstring = 'qA2'
+    test_fn(validate_string(sstring), (True, True, True, True, True))
